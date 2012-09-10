@@ -1,4 +1,14 @@
-function filter = get_filter_gray(size_f, rot, div,pCount)
+function filter = get_filters(size_f, rot, div,pCount)
+% modified from Thomas Serre's Gabor filters used in standard HMAX model
+% (Serre et al.2007)
+
+
+%%
+if nargin < 4
+   pCount = 1;
+end
+
+
 
 lambda = size_f*2/div;%wavelength
 sigma  = lambda.*0.8;%effective bandwidth
@@ -47,7 +57,6 @@ for p = 1:pCount
     %to make gabor mean 0, std 1
     a = fVals{p}(:,:,f);
     a = a - mean(a(:));
-%     a = a / sqrt(sum(a(:) .* a(:)));
     a = a / std(a(:));
     fVals{p}(:,:,f) = a;
     end
@@ -60,4 +69,6 @@ for p = 1:pCount
     end 
 
 end
+
+
 return;

@@ -5,13 +5,21 @@ function [gfilters,cfilters] = get_filter_gabor(size_f,rot, div,numChannel,numPh
 
 
 %%
+if nargin < 4
+    numPhase = 1;
+    numChannel = 8;
+elseif nargin < 5
+    numPhase = 1;
+end
+
+
 lambda = size_f*2/div; %wavelength
 sigma  = lambda.*0.8; %effective bandwidth
 G = 0.3; %spatial aspect ratio
 
 
 
-gabor =  GenerateGabor(size_f,length(rot), G, lambda, sigma, 'norm', numPhase);
+gfilters =  GenerateGabor(size_f,length(rot), G, lambda, sigma, 'norm', numPhase);
 
 % seperate gabor to positive and negative ones
 filter1 = GenerateGabor(size_f, length(rot), G, lambda, sigma, 'positive', numPhase);
@@ -37,7 +45,7 @@ weights = [weights , -weights];
 
 
 % spatio-chromatic opponent filters
-filter_gabor = cell(numPhase,1);
+cfilters = cell(numPhase,1);
 
 for pp = 1:numPhase
 
@@ -49,7 +57,7 @@ for pp = 1:numPhase
                 hh = 2;
             end
             
-            filter_gabor{pp}(:,:,ii,jj,:) =  weights(ii,jj) * filter{pp}(:,:,hh,:);
+            cfilters{pp}(:,:,ii,jj,:) =  weights(ii,jj) * filter{pp}(:,:,hh,:);
         end 
     end
     
@@ -59,7 +67,7 @@ end
 
 filter_all = cell(numPhase,1);
 for pp = 1:numPhase
-    filter_all{pp} = reshape(filter_gabor{pp}, size_f, size_f, 3, numChannel*length(rot));
+    filter_all{pp} = reshape(cfilters{pp}, size_f, size_f, 3, numChannel*length(rot));
 
     for i=1:3
         for j=1:numChannel*length(rot)
@@ -70,7 +78,7 @@ for pp = 1:numPhase
         end
     end
     
-    filter_gabor{pp} = reshape(filter_all{pp},size_f,size_f,3,numChannel,length(rot));  
+    cfilters{pp} = reshape(filter_all{pp},size_f,size_f,3,numChannel,length(rot));  
 end
 
 
