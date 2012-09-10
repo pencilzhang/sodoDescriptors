@@ -55,14 +55,14 @@ imscr = imscr * 2 -1;
 % plausible. Any gradient operators could be used, such as Gaussian 
 % derivatives
 % -------------------------------------------------------------------------
-[grayFilter,colorfilter] = get_filter_gabor(RF_siz,orients,Div,numChannel,numPhase); 
+[gfilters,cfilters] = get_filter_gabor(RF_siz,orients,Div,numChannel,numPhase); 
 
 
 
 %% ------------------------------------------------------------------------
 %                           Single Opponenency
 % -------------------------------------------------------------------------
-s = computeSO(imscr,colorfilter,numChannel,numOrient,numPhase);
+s = computeSO(imscr,cfilters,numChannel,numOrient,numPhase);
 
 % Divisive normalization over orientations
 % Note: this step is different from the one used for SO descriptors
@@ -79,7 +79,7 @@ s = divNorm_do(s,k,sigma,numOrient);
 % GrayFilter is used at the DO stage is the same as the one used at the SO
 % stage but in the general case any filter with excitatory and inhibitory 
 % components could be used.
-[ds,dc] = computeDO(s,grayFilter,numChannel,numOrient,numPhase);
+[ds,dc] = computeDO(s,gfilters,numChannel,numOrient,numPhase);
 
 
 

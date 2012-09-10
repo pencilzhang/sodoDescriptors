@@ -55,14 +55,14 @@ imscr = imscr * 2 -1;
 % plausible. Any gradient operators could be used, such as Gaussian 
 % derivatives
 % -------------------------------------------------------------------------
-[~,colorfilter] = get_filter_gabor(RF_siz,orients,Div,numChannel,numPhase);
+[~,cfilters] = get_filter_gabor(RF_siz,orients,Div,numChannel,numPhase);
 
 
 %% ------------------------------------------------------------------------
 %                           Single Opponenency
 % -------------------------------------------------------------------------
 % Single-opponent simple cell (SOS1)
-s = computeSO(imscr,colorfilter,numChannel,numOrient,numPhase);
+s = computeSO(imscr,cfilters,numChannel,numOrient,numPhase);
 
 % Divisive normalization over opponent color channels
 s = divNorm_so(s,k,sigma,numChannel);

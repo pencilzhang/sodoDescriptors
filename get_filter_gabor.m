@@ -1,4 +1,4 @@
-function [gabor,filter_gabor] = get_filter_gabor(size_f,rot, div,numChannel,numPhase)
+function [gfilters,cfilters] = get_filter_gabor(size_f,rot, div,numChannel,numPhase)
 % modified from Thomas Serre's Gabor filters used in standard HMAX model
 % (Serre et al.2007)
 % Author: Jun Zhang & Youssef Barhomi
@@ -16,7 +16,6 @@ gabor =  GenerateGabor(size_f,length(rot), G, lambda, sigma, 'norm', numPhase);
 % seperate gabor to positive and negative ones
 filter1 = GenerateGabor(size_f, length(rot), G, lambda, sigma, 'positive', numPhase);
 filter2 = GenerateGabor(size_f, length(rot), G, lambda, sigma, 'negative', numPhase);
-
 
 filter = cell(numPhase,1);
 for pp = 1:numPhase
