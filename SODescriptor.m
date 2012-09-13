@@ -19,7 +19,7 @@ function s = SODescriptor(img_path);
 % Gabor filters  (modified from Serre et al. PAMI07)
 orients = [90 0]; %orientations
 numOrient = length(orients);
-div = [4:-.05:3.2];
+div = 4:-.05:3.2;
 Div = div(3);
 RF_siz = 11; % filter size
 numPhase = 2; % numbers of phases
@@ -81,7 +81,7 @@ count = 0;
 for kk = 1:3
     for jj = 1:numChannel
         count = count + 1;
-        subplot(3,numChannel,count); imagesc(colorfilter{pp}(:,:,kk,jj,ii)); 
+        subplot(3,numChannel,count); imagesc(cfilters{pp}(:,:,kk,jj,ii)); 
         axis image; axis off; 
         colormap gray;
     end
