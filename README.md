@@ -1,10 +1,10 @@
 sodoDescriptors
 ===============
 
-to compute Single-Opponency(SO) and Double-Opponency(DO)
+Compute Single-Opponency(SO) and Double-Opponency(DO)
 
-Gabor filters used in Hmax are used to extract edge information. 
+Gabor filters used in HMAX are used to extract edges. 
 
-Any kind of gradient operators could be used to generate SO and DO descriptors.
+Any gradient operators could be used to generate SO and DO descriptors, such as Gaussian derivatives.
 
 
