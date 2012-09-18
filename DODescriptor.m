@@ -19,7 +19,7 @@ function [ds,dc] = DODescriptor(img_path);
 % Gabor filters (modified from Serre et al. PAMI07)
 orients = [90 -45 0 45]; %orientations
 numOrient = length(orients);
-div = 4:-.05:3.2;
+div = [4:-.05:3.2];
 Div = div(3);
 RF_siz = 11; % filter size
 numPhase = 2; % numbers of phases
