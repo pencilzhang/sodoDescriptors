@@ -1,11 +1,11 @@
-function filter = get_filters(size_f, rot, div,pCount)
+function filter = get_filters(size_f, rot, div,phase)
 % modified from Thomas Serre's Gabor filters used in standard HMAX model
 % (Serre et al.2007)
 
 
 %%
 if nargin < 4
-   pCount = 1;
+   phase = 0;
 end
 
 
@@ -15,22 +15,23 @@ sigma  = lambda.*0.8;%effective bandwidth
 G      = 0.3; 
 
 
-filter = GenerateGabor(size_f,rot, G,  lambda, sigma, 'normal',pCount); 
+filter = GenerateGabor(size_f,rot, G,  lambda, sigma, 'normal',phase); 
 % gabor sign: 'normal'-basic gabor; 'positive'/'negative':
 % positive/negative units of gabor
 
 
-function fVals = GenerateGabor(rfCount, rot, aspectRatio, lambda, sigma, gabor_sign,pCount)                                              
+function fVals = GenerateGabor(rfCount, rot, aspectRatio, lambda, sigma, gabor_sign,phase)                                              
 
-
+pCount = length(phase);
 fVals = cell(pCount,1);
 fCount = length(rot);
 points = (1 : rfCount) - ((1 + rfCount) / 2);
 
 for p = 1:pCount
     
-    phase =  (p - 1) / 2 * pi;%phases: 0,90,180,270
-    
+%     phase =  (p - 1) / 2 * pi;%phases: 0,90,180,270
+      alpha = phase * pi / 180;
+      
     for f = 1 : fCount
     
         theta = rot * pi / 180;%orients: 0,45,90,135 degrees
@@ -44,7 +45,7 @@ for p = 1:pCount
 
             if sqrt(x * x + y * y) <= rfCount / 2
                 e = exp(-(x * x + aspectRatio * aspectRatio * y * y) / (2 * sigma * sigma));
-                e = e * cos(2 * pi * x / lambda + phase);
+                e = e * cos(2 * pi * x / lambda + alpha);
             else
                 e = 0;
             end
