@@ -111,5 +111,8 @@ for jj = 1:numChannel/2
 end
 
 
+% visulize the DOedge response
+% max over orientations
+figure;imagesc(max(max(dc,[],4),[],3));axis image;
 
 return
